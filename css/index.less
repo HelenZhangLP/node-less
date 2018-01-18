@@ -1,0 +1,94 @@
+
+//reset style
+body,ul,li,div{
+	margin: 0;
+	padding: 0;
+}
+ul,li{
+	list-style: none;
+}
+body {
+	background: #cdcdcd;
+}
+// 变量
+@width: 200px;
+
+//混合
+.boxstyle(@radius:5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
+.box{
+	width: @width;
+	height: @width/4;
+	background: green;
+	.boxstyle();
+}
+
+//@arguments 变量，即所有项都是用参数处理
+.boxarg(@w:30px,@c:#ff9,@s:solid) {
+	border: @arguments;
+}
+
+.boxargdemo {
+	width: @width;
+	height: @width/5;
+	.boxarg()
+}
+
+
+//匹配模式 写三角
+.trangle(@_) {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.trangle(top,@color,@w){
+	border: solid @w/4;
+	border-color: @color transparent transparent transparent;
+}
+.trangle(right,@color,@w){
+	border: solid @w/4;
+	border-color: transparent @color transparent transparent;
+}
+.trangle(bottom,@color,@w){
+	border: solid @w/4;
+	border-color: transparent transparent @color transparent;
+}
+.trangle(left,@color,@w){
+	border: solid @w/4;
+	border-color: transparent transparent transparent @color;
+}
+.endtrangle {
+	.trangle(left,#f60,200px)
+}
+
+// less 里的嵌套规则
+ul {
+	margin-top: 10px;
+	li {
+		line-height: 20px;
+		background-color: #fcfcfc;
+
+		a {
+			text-decoration: none;
+			padding: 0 10px;
+			color: #000;
+			display: block;
+
+			//& 表示上一层目录
+			&:hover {
+				background-color: #ababab;
+			}
+		}
+	}
+}
+
+//避免编译
+.uncompile{
+	//width: ~'calc(100px-20px)';
+	width: calc(100px-20px);
+	height: 40px;
+	background-color: #fdd!important;
+}
